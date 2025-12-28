@@ -394,7 +394,7 @@
   <input placeholder="Имя" id="name"><br><br>
   <input placeholder="Телефон" id="phone"><br><br>
 
-  <button class="submit_btn" onclick="book()">Забронировать</button>
+  <button class="submit_btn" id="book-btn">Забронировать</button>
 
 </div>
           </div>
@@ -662,11 +662,89 @@ function initBookingModal() {
 }
 
 /* Инициализация ТОЛЬКО при открытии модалки */
-document.querySelectorAll('a[href="#open-modal"]').forEach(btn => {
-  btn.addEventListener("click", () => {
-    setTimeout(initBookingModal, 100);
+<script>
+const API = "https://match-arena-booking-production.up.railway.app";
+const TIMES = ["18:00", "19:00", "20:00", "21:00"];
+
+let bookingInited = false;
+let selectedTime = null;
+
+function initBookingIfNeeded() {
+  if (bookingInited) return;
+
+  const modal = document.getElementById("open-modal");
+  if (!modal || !modal.offsetParent) return;
+
+  const dateInput = modal.querySelector("#date");
+  const hallSelect = modal.querySelector("#hall");
+  const slotsDiv = modal.querySelector("#slots");
+  const nameInput = modal.querySelector("#name");
+  const phoneInput = modal.querySelector("#phone");
+  const bookBtn = modal.querySelector("#book-btn");
+
+  if (!dateInput || !hallSelect || !slotsDiv || !bookBtn) return;
+
+  function loadSlots() {
+    if (!dateInput.value) return;
+
+    fetch(`${API}/availability?date=${dateInput.value}&hall=${hallSelect.value}`)
+      .then(r => r.json())
+      .then(booked => {
+        slotsDiv.innerHTML = "";
+        selectedTime = null;
+
+        TIMES.forEach(time => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.textContent = time;
+          btn.disabled = booked.includes(time);
+          btn.onclick = () => {
+            selectedTime = time;
+            btn.classList.add("active");
+          };
+          slotsDiv.appendChild(btn);
+        });
+      });
+  }
+
+  dateInput.addEventListener("change", loadSlots);
+  hallSelect.addEventListener("change", loadSlots);
+
+  bookBtn.addEventListener("click", () => {
+    if (!dateInput.value || !selectedTime || !nameInput.value || !phoneInput.value) {
+      alert("Заполните все поля");
+      return;
+    }
+
+    fetch(`${API}/booking`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        date: dateInput.value,
+        time: selectedTime,
+        hall: hallSelect.value,
+        name: nameInput.value,
+        phone: phoneInput.value
+      })
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.success) {
+        alert("Бронирование успешно!");
+        loadSlots();
+      } else {
+        alert(data.error);
+      }
+    });
   });
-});
+
+  bookingInited = true;
+}
+
+/* Проверяем каждые 300мс, открыта ли модалка */
+setInterval(initBookingIfNeeded, 300);
+</script>
+
 </script>
 
   </body>
