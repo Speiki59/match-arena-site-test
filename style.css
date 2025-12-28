@@ -5,14 +5,23 @@
   box-sizing: border-box;
 }
 
+html, body {
+  width: 100%;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 body {
   font-family: "Montserrat", sans-serif;
   color: black;
   font-size: 14px;
   line-height: 20px;
-  width: 80%;
+  max-width: 1200px;
   margin: 0 auto;
 }
+
+/* ====== ОБЩЕЕ ====== */
 
 .wrapper {
   text-align: right;
@@ -22,18 +31,24 @@ li {
   list-style: none;
 }
 
-/* Временные рамки */
-.about li::after {
-  content: "";
-  display: flex;
-  margin: 0 auto;
-  width: 95%;
-  border-bottom: 3px dashed rgb(175, 52, 45);
-}
+/* ====== ЗАГОЛОВКИ ====== */
 
 h2 {
-  visibility: hidden;
+  visibility: visible;
 }
+
+/* ====== АНИМАЦИИ ====== */
+
+.anim {
+  opacity: 1; /* ВАЖНО: показываем контент сразу */
+}
+
+.animated_in {
+  opacity: 1;
+  transition: opacity 800ms ease-in;
+}
+
+/* ====== КОНТЕНТ ====== */
 
 article img {
   width: 350px;
@@ -50,11 +65,10 @@ article img {
 .about h3 span {
   color: white;
   margin-right: 4px;
-  padding: 1px;
   background-color: rgb(175, 52, 45);
   font-size: 1.5em;
   border-radius: 5px;
-  padding-left: 5px;
+  padding: 2px 5px;
 }
 
 .about div p {
@@ -63,80 +77,34 @@ article img {
   line-height: 2em;
 }
 
+/* ====== КНОПКА ====== */
+
 .self_book_btn {
-  position: relative;
+  display: block;
   background: rgb(175, 52, 45);
   color: #fff;
   cursor: pointer;
-  font-size: 20px !important;
-  font-weight: 500 !important;
-  height: 60px !important;
-  padding: 0 30px !important;
-  line-height: 60px !important;
-  text-align: center !important;
-  outline: 0 !important;
-  text-decoration: none !important;
-  border: none;
-  width: 300px;
-  margin: 0 auto;
-  margin-bottom: 1em;
-  text-transform: uppercase;
-  transition: all 800ms ease;
-}
-
-.self_book_btn svg {
+  font-size: 20px;
   height: 60px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
+  line-height: 60px;
+  text-align: center;
+  text-decoration: none;
+  width: 300px;
+  margin: 20px auto;
+  text-transform: uppercase;
+  border-radius: 5px;
 }
 
-rect {
-  fill: none;
-  stroke: rgb(175, 52, 45);
-  stroke-width: 2;
-  stroke-dasharray: 400;
-  stroke-dashoffset: 200;
-  transition: all 1000ms ease;
-}
+/* ====== ХЕДЕР ====== */
 
-.self_book_btn:hover {
-  background: transparent;
-  color: rgb(175, 52, 45);
-}
-.self_book_btn:hover rect {
-  stroke-width: 6;
-  stroke-dasharray: 190;
-  stroke-dashoffset: 400;
-  transition: all 1000ms cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.booking::after {
-  content: "";
-  display: flex;
-  margin: 0 auto;
-  width: 95%;
-  border-bottom: 3px dashed rgb(175, 52, 45);
-}
-
-/* Хeдер */
 header {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-.menu {
-  margin: 0 auto;
-}
-
 .menu ul {
-  padding-left: 50px;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 
 .menu a {
@@ -147,321 +115,64 @@ header {
   font-weight: 700;
 }
 
-.menu a:hover {
+/* ====== ВЫБОР ГОРОДА (ИСПРАВЛЕНО) ====== */
+
+.city-selection {
   color: rgb(175, 52, 45);
-  border-bottom: 3px solid rgb(175, 52, 45);
-}
-
-.header-contacts {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-  font-size: 1.2em;
-  line-height: 2.5em;
-}
-
-.header-contacts a {
-  text-decoration: none;
-  color: black;
-}
-
-.header-contacts img {
-  padding-top: 10px;
-}
-
-.header-contacts li img {
-  padding-right: 10px;
-  vertical-align: top;
-}
-
-/* Контентная часть */
-main h1 {
-  background: rgb(175, 52, 45);
-  margin: 10px;
-  padding: 10px;
-  color: white;
-  border-radius: 5px;
-  font-size: 50px;
-  text-align: center;
+  cursor: pointer;
   text-transform: uppercase;
-  line-height: 1em;
+  font-weight: bold;
 }
 
-main section {
-  display: flex;
-  flex-direction: column;
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
 
-.about {
-  display: flex;
-  flex-direction: column;
+.dropdown-child {
+  position: absolute;
+  display: none;
+  background: white;
+  border: 1px solid rgb(175, 52, 45);
 }
 
-.about article div {
-  padding: 10px;
+.dropdown:hover .dropdown-child {
+  display: block;
 }
 
-.about li article {
-  margin: 10px 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.about li:nth-child(2n) article {
-  flex-direction: row-reverse;
-}
-
-.price-list {
-  margin-bottom: 20px;
-  margin-top: 20px;
-  font-size: 1.5em;
-  line-height: 2em;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.booking span {
-  padding: 10px;
-  justify-self: center;
-  align-self: center;
-}
-
-.price-list li:nth-child(even) {
-  color: #af342d;
-}
+/* ====== КОНТАКТЫ ====== */
 
 .contacts {
-  padding: 10px;
+  padding: 20px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: space-around;
-  font-size: 1.5em;
-  line-height: 1.5em;
 }
 
-.contacts a {
-  text-decoration: none;
-  color: rgb(175, 52, 45);
-}
-
-.contacts div ul {
-  padding: 10px;
-}
-
-.map iframe {
-  border-radius: 10px;
-}
-
-/* Футер */
+/* ====== ФУТЕР ====== */
 
 footer {
-  margin: 25px 25px;
+  margin: 30px 0;
   display: flex;
   justify-content: center;
 }
 
-footer span {
-  align-self: center;
-  padding-right: 20px;
-  font-size: 25px;
-  font-weight: 700;
-  color: #494248;
-  text-transform: uppercase;
-}
-
-footer img:hover {
-  transform: scale(1.1);
-  opacity: 0.5;
-}
-
-button:active,
-button:focus {
-  outline: none;
-}
-
-/* Выбор города */
-
-.city​-selection {
-  color: rgb(175, 52, 45);
-  border: none;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-weight: bolder;
-}
-
-.dropdown {
-  padding: 10px 0px;
-  position: relative;
-  display: inline-block;
-  text-align: left;
-}
-.dropdown-child {
-  position: absolute;
-  display: none;
-  box-shadow: 2px 2px 5px grey;
-}
-.dropdown-child a {
-  color: black;
-  text-decoration: none;
-  display: block;
-  border: 1px solid rgb(175, 52, 45);
-  background-color: white;
-  padding: 10px;
-  transition: all 300ms ease-in-out;
-}
-
-.dropdown-child a:hover {
-  color: white;
-  background: rgb(175, 52, 45);
-}
-.dropdown-child a:first-child {
-  border-bottom: none;
-}
-.dropdown:hover .dropdown-child {
-  display: block;
-}
-/* Медиазапросы */
-
-@media screen and (max-width: 1199px) {
-  * {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    width: 100%;
-  }
-
-  .wrapper {
-    text-align: center;
-  }
-}
+/* ====== АДАПТИВ ====== */
 
 @media screen and (max-width: 768px) {
-  * {
-    scroll-behavior: smooth;
+  body {
+    padding: 0 10px;
   }
 
-  body {
-    width: 100%;
+  header {
+    flex-direction: column;
   }
 
   .menu ul {
     flex-direction: column;
-    align-items: flex-end;
-    margin-left: auto;
-  }
-
-  h3 {
-    text-align: center;
-  }
-
-  .menu {
-    font-size: 0.75em;
-    padding: 5px;
-  }
-
-  .header-contacts {
-    display: none;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .map iframe {
-    max-width: 100%;
-    height: auto;
-  }
-
-  main h1 {
-    font-size: 25px;
-  }
-
-  .about article {
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-  }
-
-  .about li article {
-    flex-direction: column-reverse;
-  }
-
-  .about li:nth-child(2n) article {
-    flex-direction: column-reverse;
-  }
-
-  .about li::after {
-    display: none;
-  }
-
-  .price-list {
-    margin-bottom: 20px;
-    margin-top: 0;
-    font-size: 1.19em;
-  }
-
-  .booking::after {
-    display: none;
   }
 
   .contacts {
     flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    font-size: 1.35em;
-    line-height: 1.5em;
-  }
-
-  .contacts h2 {
-    font-size: 0;
-    line-height: 0;
-  }
-
-  .contacts div {
-    padding: 0px;
-  }
-
-  .about div p {
-    padding-top: 5px;
-    font-size: 1.2em;
-    line-height: 2em;
-    text-align: center;
-  }
-
-  .bookform-floating-button {
-    font-size: 14px !important;
-  }
-  .bookform-floating-button.left {
-    bottom: 24px !important;
   }
 }
-
-@media screen and (max-width: 339px) {
-  .price-list {
-    margin-bottom: 20px;
-    margin-top: 0;
-    font-size: 1em;
-  }
-}
-
-.anim {
-  opacity: 0;
-}
-
-.animated_in {
-  opacity: 1;
-  transition: opacity 800ms ease-in;
-}
-
-/*.bookform-floating-button {*/
-/*  top: 0 !important;*/
-/*}*/
-/*.bookform-floating-button-close {*/
-/*  top: 0 !important;*/
-/*}*/
