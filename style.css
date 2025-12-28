@@ -5,8 +5,9 @@
   box-sizing: border-box;
 }
 
-html, body {
-  width: 100%;
+/* ===== FIX: страница не должна обрезаться ===== */
+html,
+body {
   height: auto;
   overflow-x: hidden;
   overflow-y: auto;
@@ -17,11 +18,9 @@ body {
   color: black;
   font-size: 14px;
   line-height: 20px;
-  max-width: 1200px;
+  width: 80%;
   margin: 0 auto;
 }
-
-/* ====== ОБЩЕЕ ====== */
 
 .wrapper {
   text-align: right;
@@ -31,24 +30,19 @@ li {
   list-style: none;
 }
 
-/* ====== ЗАГОЛОВКИ ====== */
+/* ===== Временные рамки ===== */
+.about li::after {
+  content: "";
+  display: flex;
+  margin: 0 auto;
+  width: 95%;
+  border-bottom: 3px dashed rgb(175, 52, 45);
+}
 
+/* ===== FIX: не скрываем заголовки ===== */
 h2 {
   visibility: visible;
 }
-
-/* ====== АНИМАЦИИ ====== */
-
-.anim {
-  opacity: 1; /* ВАЖНО: показываем контент сразу */
-}
-
-.animated_in {
-  opacity: 1;
-  transition: opacity 800ms ease-in;
-}
-
-/* ====== КОНТЕНТ ====== */
 
 article img {
   width: 350px;
@@ -65,10 +59,10 @@ article img {
 .about h3 span {
   color: white;
   margin-right: 4px;
+  padding: 1px 5px;
   background-color: rgb(175, 52, 45);
   font-size: 1.5em;
   border-radius: 5px;
-  padding: 2px 5px;
 }
 
 .about div p {
@@ -77,34 +71,82 @@ article img {
   line-height: 2em;
 }
 
-/* ====== КНОПКА ====== */
-
+/* ===== Кнопка бронирования ===== */
 .self_book_btn {
-  display: block;
+  position: relative;
   background: rgb(175, 52, 45);
   color: #fff;
   cursor: pointer;
-  font-size: 20px;
-  height: 60px;
-  line-height: 60px;
-  text-align: center;
-  text-decoration: none;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  height: 60px !important;
+  padding: 0 30px !important;
+  line-height: 60px !important;
+  text-align: center !important;
+  outline: 0 !important;
+  text-decoration: none !important;
+  border: none;
   width: 300px;
-  margin: 20px auto;
+  margin: 0 auto 1em;
   text-transform: uppercase;
-  border-radius: 5px;
+  transition: all 800ms ease;
+  display: block;
 }
 
-/* ====== ХЕДЕР ====== */
+.self_book_btn svg {
+  height: 60px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
 
+rect {
+  fill: none;
+  stroke: rgb(175, 52, 45);
+  stroke-width: 2;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 200;
+  transition: all 1000ms ease;
+}
+
+.self_book_btn:hover {
+  background: transparent;
+  color: rgb(175, 52, 45);
+}
+
+.self_book_btn:hover rect {
+  stroke-width: 6;
+  stroke-dasharray: 190;
+  stroke-dashoffset: 400;
+}
+
+/* ===== Раздел бронирования ===== */
+.booking::after {
+  content: "";
+  display: flex;
+  margin: 0 auto;
+  width: 95%;
+  border-bottom: 3px dashed rgb(175, 52, 45);
+}
+
+/* ===== Хедер ===== */
 header {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
+.menu {
+  margin: 0 auto;
+}
+
 .menu ul {
+  padding-left: 50px;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .menu a {
@@ -115,61 +157,200 @@ header {
   font-weight: 700;
 }
 
-/* ====== ВЫБОР ГОРОДА (ИСПРАВЛЕНО) ====== */
+.menu a:hover {
+  color: rgb(175, 52, 45);
+  border-bottom: 3px solid rgb(175, 52, 45);
+}
 
+.header-contacts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  font-size: 1.2em;
+  line-height: 2.5em;
+}
+
+.header-contacts a {
+  text-decoration: none;
+  color: black;
+}
+
+.header-contacts img {
+  padding-top: 10px;
+}
+
+.header-contacts li img {
+  padding-right: 10px;
+  vertical-align: top;
+}
+
+/* ===== Контент ===== */
+main h1 {
+  background: rgb(175, 52, 45);
+  margin: 10px;
+  padding: 10px;
+  color: white;
+  border-radius: 5px;
+  font-size: 50px;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1em;
+}
+
+main section {
+  display: flex;
+  flex-direction: column;
+}
+
+.about article div {
+  padding: 10px;
+}
+
+.about li article {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.about li:nth-child(2n) article {
+  flex-direction: row-reverse;
+}
+
+.price-list {
+  margin: 20px 0;
+  font-size: 1.5em;
+  line-height: 2em;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.price-list li:nth-child(even) {
+  color: #af342d;
+}
+
+/* ===== Контакты ===== */
+.contacts {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 1.5em;
+  line-height: 1.5em;
+}
+
+.contacts a {
+  text-decoration: none;
+  color: rgb(175, 52, 45);
+}
+
+.contacts div ul {
+  padding: 10px;
+}
+
+.map iframe {
+  border-radius: 10px;
+}
+
+/* ===== Футер ===== */
+footer {
+  margin: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+footer span {
+  align-self: center;
+  padding-right: 20px;
+  font-size: 25px;
+  font-weight: 700;
+  color: #494248;
+  text-transform: uppercase;
+}
+
+/* ===== FIX: контент не должен быть прозрачным ===== */
+.anim {
+  opacity: 1 !important;
+}
+
+/* ===== Выбор города (FIX невидимого символа) ===== */
 .city-selection {
   color: rgb(175, 52, 45);
+  border: none;
   cursor: pointer;
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 .dropdown {
+  padding: 10px 0;
   position: relative;
   display: inline-block;
+  text-align: left;
 }
 
 .dropdown-child {
   position: absolute;
   display: none;
-  background: white;
+  box-shadow: 2px 2px 5px grey;
+}
+
+.dropdown-child a {
+  color: black;
+  text-decoration: none;
+  display: block;
   border: 1px solid rgb(175, 52, 45);
+  background-color: white;
+  padding: 10px;
+}
+
+.dropdown-child a:hover {
+  color: white;
+  background: rgb(175, 52, 45);
 }
 
 .dropdown:hover .dropdown-child {
   display: block;
 }
 
-/* ====== КОНТАКТЫ ====== */
+/* ===== Адаптив ===== */
+@media screen and (max-width: 1199px) {
+  body {
+    width: 100%;
+  }
 
-.contacts {
-  padding: 20px;
-  display: flex;
-  justify-content: space-around;
+  .wrapper {
+    text-align: center;
+  }
 }
-
-/* ====== ФУТЕР ====== */
-
-footer {
-  margin: 30px 0;
-  display: flex;
-  justify-content: center;
-}
-
-/* ====== АДАПТИВ ====== */
 
 @media screen and (max-width: 768px) {
   body {
-    padding: 0 10px;
-  }
-
-  header {
-    flex-direction: column;
+    width: 100%;
   }
 
   .menu ul {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
+  }
+
+  .header-contacts {
+    display: none;
+  }
+
+  main h1 {
+    font-size: 25px;
+  }
+
+  .about li article {
+    flex-direction: column-reverse;
+  }
+
+  .booking::after {
+    display: none;
   }
 
   .contacts {
