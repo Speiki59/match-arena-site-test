@@ -376,33 +376,27 @@
             <a href="#booking" title="Закрыть" class="modal-close">&#10006;</a>
             <h1>Бронирование</h1>
             <div><center>Отправте заявку и мы вам перезвоним!</center></div>
-            <form id="booking_form">
-              <div class="group">
-                <input type="text" name="name" required />
-                <span class="bar"></span>
-                <label>Имя<sup>*</sup></label>
-              </div>
-              <div class="group">
-                <input type="text" name="surname" />
-                <span class="bar"></span>
-                <label>Фамилия</label>
-              </div>
-              <div class="group">
-                <input type="text" name="phone" id="phone_number" required />
-                <span class="bar"></span>
-                <label>Телефон<sup>*</sup></label>
-              </div>
-              <div class="group">
-                <input type="text" name="comment" />
-                <span class="bar"></span>
-                <label>Коментарий</label>
-              </div>
-              <div class="group">
-                <input type="checkbox" name="agreement" checked required id="agreement" />
-                <span> Я даю свое согласие на обработку персональных данных</span>
-              </div>
-              <button type="submit" class="submit_btn">Отправить</button>
-            </form>
+           <div id="booking-app">
+
+  <label>Дата:</label><br>
+  <input type="date" id="date"><br><br>
+
+  <label>Поле:</label><br>
+  <select id="hall">
+    <option value="field-1">Поле №1</option>
+    <option value="field-2">Поле №2</option>
+  </select>
+
+  <h3>Время</h3>
+  <div id="slots"></div>
+
+  <h3>Контакты</h3>
+  <input placeholder="Имя" id="name"><br><br>
+  <input placeholder="Телефон" id="phone"><br><br>
+
+  <button class="submit_btn" onclick="book()">Забронировать</button>
+
+</div>
           </div>
         </div>
         <div id="success" class="modal-window">
