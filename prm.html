@@ -523,6 +523,74 @@
     <!-- VK Widget -->
 
     <script src="https://unpkg.com/imask"></script>
+    <script>
+const API = "https://match-arena-booking-production.up.railway.app";
+
+const dateInput = document.getElementById("date");
+const hallSelect = document.getElementById("hall");
+const slotsDiv = document.getElementById("slots");
+const nameInput = document.getElementById("name");
+const phoneInput = document.getElementById("phone");
+
+let selectedTime = null;
+const TIMES = ["18:00", "19:00", "20:00", "21:00"];
+
+function loadSlots() {
+  if (!dateInput || !dateInput.value) return;
+
+  fetch(`${API}/availability?date=${dateInput.value}&hall=${hallSelect.value}`)
+    .then(res => res.json())
+    .then(booked => {
+      slotsDiv.innerHTML = "";
+      selectedTime = null;
+
+      TIMES.forEach(time => {
+        const btn = document.createElement("button");
+        btn.textContent = time;
+        btn.disabled = booked.includes(time);
+        btn.onclick = () => {
+          selectedTime = time;
+          alert("Вы выбрали: " + time);
+        };
+        slotsDiv.appendChild(btn);
+      });
+    });
+}
+
+if (dateInput && hallSelect) {
+  dateInput.addEventListener("change", loadSlots);
+  hallSelect.addEventListener("change", loadSlots);
+}
+
+function book() {
+  if (!dateInput.value || !selectedTime || !nameInput.value || !phoneInput.value) {
+    alert("Заполните все поля");
+    return;
+  }
+
+  fetch(`${API}/booking`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      date: dateInput.value,
+      time: selectedTime,
+      hall: hallSelect.value,
+      name: nameInput.value,
+      phone: phoneInput.value
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert("Бронирование успешно!");
+      loadSlots();
+    } else {
+      alert("Ошибка: " + data.error);
+    }
+  });
+}
+</script>
+
     <script src="./page-scripts.js"></script>
   </body>
 </html>
