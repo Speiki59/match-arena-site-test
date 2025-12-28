@@ -1,0 +1,259 @@
+.modal-window {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.75);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  display: flex;
+}
+.modal-window:target {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  animation: polygon-transform 800ms ease-in-out;
+}
+@keyframes polygon-transform {
+  from {
+    -webkit-clip-path: circle(0% at 50% 50%);
+    clip-path: circle(0% at 50% 50%);
+  }
+  to {
+    -webkit-clip-path: circle(100% at 50% 50%);
+    clip-path: circle(100% at 50% 50%);
+  }
+}
+.modal-window > div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background: #ffffff;
+}
+.modal-window header {
+  margin-top: 0.5em;
+  font-weight: bold;
+}
+.modal-window h1 {
+  font-size: 150%;
+  margin: 10px;
+}
+.modal-close {
+  color: #aaa;
+  line-height: 40px;
+  font-size: 1.5em;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 40px;
+  text-decoration: none;
+}
+.modal-close:hover {
+  color: black;
+}
+.group {
+  position: relative;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+input {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  border: none;
+  border-bottom: 1px solid #757575;
+}
+input[type="checkbox"] {
+  width: auto;
+  display: inline;
+}
+input:focus {
+  outline: none;
+}
+label {
+  color: #999;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+input:focus ~ label,
+input:valid ~ label {
+  top: -20px;
+  font-size: 14px;
+  color: rgb(175, 52, 45);
+}
+.bar {
+  position: relative;
+  display: block;
+}
+.bar:before,
+.bar:after {
+  content: "";
+  height: 2px;
+  width: 0;
+  bottom: 20px;
+  position: absolute;
+  background: rgb(175, 52, 45);
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+.bar:before {
+  left: 50%;
+}
+.bar:after {
+  right: 50%;
+}
+input:focus ~ .bar:before,
+input:focus ~ .bar:after {
+  width: 50%;
+}
+.submit_btn {
+  font-size: 18px;
+  border-radius: 30px;
+  border: none;
+  padding: 15px;
+  outline: 0;
+  background-color: rgb(175, 52, 45);
+  color: #fff;
+  float: right;
+  transition: all 300ms ease;
+}
+._dis {
+  background-color: #424242;
+}
+.animation-ctn {
+  text-align: center;
+}
+@-webkit-keyframes checkmark {
+  0% {
+    stroke-dashoffset: 100px;
+  }
+  100% {
+    stroke-dashoffset: 200px;
+  }
+}
+@-ms-keyframes checkmark {
+  0% {
+    stroke-dashoffset: 100px;
+  }
+  100% {
+    stroke-dashoffset: 200px;
+  }
+}
+@keyframes checkmark {
+  0% {
+    stroke-dashoffset: 100px;
+  }
+  100% {
+    stroke-dashoffset: 0px;
+  }
+}
+@-webkit-keyframes checkmark-circle {
+  0% {
+    stroke-dashoffset: 480px;
+  }
+  100% {
+    stroke-dashoffset: 960px;
+  }
+}
+@-ms-keyframes checkmark-circle {
+  0% {
+    stroke-dashoffset: 240px;
+  }
+  100% {
+    stroke-dashoffset: 480px;
+  }
+}
+@keyframes checkmark-circle {
+  0% {
+    stroke-dashoffset: 480px;
+  }
+  100% {
+    stroke-dashoffset: 960px;
+  }
+}
+@keyframes colored-circle {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
+  }
+}
+.icon--order-success svg polyline {
+  -webkit-animation: checkmark 0.25s ease-in-out 0.7s backwards;
+  animation: checkmark 0.25s ease-in-out 0.7s backwards;
+}
+.icon--order-success svg circle {
+  -webkit-animation: checkmark-circle 0.6s ease-in-out backwards;
+  animation: checkmark-circle 0.6s ease-in-out backwards;
+}
+.icon--order-success svg circle#colored {
+  -webkit-animation: colored-circle 0.6s ease-in-out 0.7s backwards;
+  animation: colored-circle 0.6s ease-in-out 0.7s backwards;
+}
+@media screen and (min-width: 280px) {
+  .modal-window > div {
+    width: 320px;
+  }
+  .group {
+    margin-top: 15px;
+  }
+  input {
+    width: 250px;
+  }
+  .bar {
+    width: 250px;
+  }
+  .modal-close {
+    line-height: 50px;
+    color: #000;
+    font-size: 2em;
+  }
+}
+@media screen and (min-width: 360px) {
+  .modal-window > div {
+    width: 376px;
+  }
+  .group {
+    margin-top: 27px;
+  }
+  input {
+    width: 300px;
+  }
+  .bar {
+    width: 300px;
+  }
+}
+@media screen and (min-width: 767px) {
+  .modal-window > div {
+    width: 400px;
+  }
+  .group {
+    margin-top: 27px;
+  }
+  input {
+    width: 340px;
+  }
+  .bar {
+    width: 340px;
+  }
+  .modal-close {
+    color: #aaa;
+    font-size: 1.5em;
+  }
+}
